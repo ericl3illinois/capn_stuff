@@ -96,17 +96,7 @@ Wwd <- function(water, param){
 #####################################################################
 #Derivative of water withdrawl function
 WwdDs1 <- function(water, param){
-  Wwd <- Wwd(water, param)
-  
-  beta <- param[4][[1]]
-  Gamma1 <- param[6][[1]]
-  Gamma2 <- param[7][[1]]
-  
-  AP1 <- cropFwater(water, param) #area planted
-  APprime1 <- DcropFwater(water, param) #derivative of the area planted function
-  
-  temp <- sum(APprime1[1:5] * Gamma1) + sum((2 * APprime1[1:5] * AP1[1:5]) * Gamma2)
-  Wwd * (beta + temp)
+  (Wwd(water+10^-9, param)-Wwd(water, param))/10^-9
   
 }
 #####################################################################
@@ -131,22 +121,8 @@ profit <- function(water, param){
 #profit prime s function
 ProfDs1 <- function(water, param){
   
-  prices <- param[8][[1]]
-  costCropAcreX <- param[9][[1]]
-  
-  AP1 <- cropFwater(water, param) #area planted
-  APprime1 <- DcropFwater(water, param) #derivative of the area planted function
-  
-  
-  APprime1pa <- matrix(0, nrow = 1, ncol = 6) #normalized area planted
-  for (j in 1:6) {
-    APprime1pa[j] <- APprime1[j] / sum(AP1)
-  }
-  
-  temp <- c(as.numeric(prices - costCropAcreX), 0)
-  sum(APprime1pa[1:6] * (temp[1:6]))
-  
-  
+    (profit(water+10^-9, param)-profit(water, param))/10^-9
+
 }
 
 #####################################################################
