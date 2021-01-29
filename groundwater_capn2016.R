@@ -79,7 +79,7 @@ DcropFwater<- function(water, param){
   
   (cropFwater(water+10^-9,param)-  cropFwater(water,param))/10^-9
   
-}
+}Q
 
 #####################################################################
 #Water withdrawl function
@@ -123,7 +123,7 @@ WwdDs1<-function(water,param){
 }
 #####################################################################
 #profit function
-profit <- function(water,param){
+oldprofit <- function(water,param){
   
   prices<-t(param[[8]])
   costCropAcreX<-param[[9]]
@@ -138,6 +138,13 @@ profit <- function(water,param){
   
   
 }
+profit <- function(water,param){
+if(water>1.75){
+    oldprofit(water,param)}
+  
+  else{
+    .5*oldprofit(0,param)+.5*(water/1.75)*oldprofit(1.75,param)} }
+
 
 #####################################################################
 #profit prime s function
