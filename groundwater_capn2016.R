@@ -79,7 +79,7 @@ DcropFwater<- function(water, param){
   
   (cropFwater(water+10^-9,param)-  cropFwater(water,param))/10^-9
   
-}Q
+}
 
 #####################################################################
 #Water withdrawl function
